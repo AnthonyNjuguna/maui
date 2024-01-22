@@ -12,6 +12,13 @@ namespace Microsoft.Maui.Controls.SourceGen
 			category: "XamlParsing",
 			defaultSeverity: DiagnosticSeverity.Error,
 			isEnabledByDefault: true);
+
+		public static DiagnosticDescriptor XamlCompFalse = new DiagnosticDescriptor(
+			id: "MAUIG0070",
+			title: new LocalizableResourceString(nameof(MauiGResources.XamlCompFalseMessage), MauiGResources.ResourceManager, typeof(MauiGResources)),
+			messageFormat: new LocalizableResourceString(nameof(MauiGResources.XamlCompFalseMessage), MauiGResources.ResourceManager, typeof(MauiGResources)),
+			category: "XamlParsing",
+			defaultSeverity: DiagnosticSeverity.Warning,
+			isEnabledByDefault: true);
 	}
 }
-

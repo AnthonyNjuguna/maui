@@ -74,7 +74,9 @@ namespace Microsoft.Maui.Controls.Build.Tasks
 		public static BuildExceptionCode NamescopeDuplicate = new BuildExceptionCode("XFC", 0064, nameof(NamescopeDuplicate), "");
 		public static BuildExceptionCode ContentPropertyAttributeMissing = new BuildExceptionCode("XFC", 0065, nameof(ContentPropertyAttributeMissing), "");
 		public static BuildExceptionCode InvalidXaml = new BuildExceptionCode("XFC", 0066, nameof(InvalidXaml), "");
-
+		
+		//disabled comiplation warnings
+		//0070 reserved in MauiG for XamlCompFalse
 
 		//Extensions
 		public static BuildExceptionCode XStaticSyntax = new BuildExceptionCode("XFC", 0100, nameof(XStaticSyntax), "");

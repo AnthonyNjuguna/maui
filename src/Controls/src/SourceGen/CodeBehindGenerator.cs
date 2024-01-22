@@ -149,13 +149,16 @@ namespace Microsoft.Maui.Controls.SourceGen
 				return;
 			var uid = Crc64.ComputeHashString($"{compilation.AssemblyName}.{itemName}");
 
-			if (!TryParseXaml(text, uid, compilation, caches, context.CancellationToken, projItem.TargetFramework, out var accessModifier, out var rootType, out var rootClrNamespace, out var generateDefaultCtor, out var addXamlCompilationAttribute, out var hideFromIntellisense, out var XamlResourceIdOnly, out var baseType, out var namedFields, out var parseException))
+			void reportDiagnostic (DiagnosticDescriptor descriptor, string? message) 
+			{
+					var location = projItem.RelativePath is not null ? Location.Create(projItem.RelativePath, new TextSpan(), new LinePositionSpan()) : null;
+					context.ReportDiagnostic(Diagnostic.Create(descriptor, location, message));
+			}
+
+			if (!TryParseXaml(text, uid, compilation, caches, context.CancellationToken, reportDiagnostic, projItem.TargetFramework, out var accessModifier, out var rootType, out var rootClrNamespace, out var generateDefaultCtor, out var addXamlCompilationAttribute, out var hideFromIntellisense, out var XamlResourceIdOnly, out var baseType, out var namedFields, out var parseException))
 			{
 				if (parseException != null)
-				{
-					var location = projItem.RelativePath is not null ? Location.Create(projItem.RelativePath, new TextSpan(), new LinePositionSpan()) : null;
-					context.ReportDiagnostic(Diagnostic.Create(Descriptors.XamlParserError, location, parseException.Message));
-				}
+					reportDiagnostic(Descriptors.XamlParserError, parseException.Message);
 				return;
 			}
 			var sb = new StringBuilder();
@@ -237,7 +240,7 @@ namespace Microsoft.Maui.Controls.SourceGen
 			context.AddSource(hintName, SourceText.From(sb.ToString(), Encoding.UTF8));
 		}
 
-		static bool TryParseXaml(SourceText text, string uid, Compilation compilation, AssemblyCaches caches, CancellationToken cancellationToken, string? targetFramework, out string? accessModifier, out string? rootType, out string? rootClrNamespace, out bool generateDefaultCtor, out bool addXamlCompilationAttribute, out bool hideFromIntellisense, out bool xamlResourceIdOnly, out string? baseType, out IEnumerable<(string, string, string)>? namedFields, out Exception? exception)
+		static bool TryParseXaml(SourceText text, string uid, Compilation compilation, AssemblyCaches caches, CancellationToken cancellationToken, Action<DiagnosticDescriptor, string?> reportDiagnostic, string? targetFramework, out string? accessModifier, out string? rootType, out string? rootClrNamespace, out bool generateDefaultCtor, out bool addXamlCompilationAttribute, out bool hideFromIntellisense, out bool xamlResourceIdOnly, out string? baseType, out IEnumerable<(string, string, string)>? namedFields, out Exception? exception)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 
@@ -278,7 +281,7 @@ namespace Microsoft.Maui.Controls.SourceGen
 			// <?xaml-comp compile="true" ?>
 			//
 			// we will generate a xaml.g.cs file with the default ctor calling InitializeComponent, and a XamlCompilation attribute
-			var hasXamlCompilationProcessingInstruction = GetXamlCompilationProcessingInstruction(xmlDoc);
+			var hasXamlCompilationProcessingInstruction = GetXamlCompilationProcessingInstruction(xmlDoc, reportDiagnostic);
 
 			var nsmgr = new XmlNamespaceManager(xmlDoc.NameTable);
 			nsmgr.AddNamespace("__f__", XamlParser.MauiUri);
@@ -332,7 +335,7 @@ namespace Microsoft.Maui.Controls.SourceGen
 		}
 
 
-		static bool GetXamlCompilationProcessingInstruction(XmlDocument xmlDoc)
+		static bool GetXamlCompilationProcessingInstruction(XmlDocument xmlDoc, Action<DiagnosticDescriptor, string?> reportDiagnostic)
 		{
 			var instruction = xmlDoc.SelectSingleNode("processing-instruction('xaml-comp')") as XmlProcessingInstruction;
 			if (instruction == null)
@@ -340,8 +343,12 @@ namespace Microsoft.Maui.Controls.SourceGen
 
 			var parts = instruction.Data.Split(' ', '=');
 			var indexOfCompile = Array.IndexOf(parts, "compile");
-			if (indexOfCompile != -1)
-				return !parts[indexOfCompile + 1].Trim('"', '\'').Equals("false", StringComparison.OrdinalIgnoreCase);
+			if (indexOfCompile != -1) {
+				var value = !parts[indexOfCompile + 1].Trim('"', '\'').Equals("false", StringComparison.OrdinalIgnoreCase);
+				if (value == false)
+					reportDiagnostic(Descriptors.XamlCompFalse, null);
+				return value;
+			}
 			return true;
 		}
 

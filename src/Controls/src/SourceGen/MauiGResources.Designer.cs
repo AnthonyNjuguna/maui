@@ -77,5 +77,15 @@ namespace Microsoft.Maui.Controls.SourceGen {
                 return ResourceManager.GetString("XamlParsingFailed", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Setting &lt;?xaml-comp compile="false" ?&gt; prevent code optimization and trimming.
+        /// </summary>
+        internal static string XamlCompFalseMessage
+        {
+            get {
+                return ResourceManager.GetString("XamlCompFalseMessage", resourceCulture);
+            }
+        }
     }
 }

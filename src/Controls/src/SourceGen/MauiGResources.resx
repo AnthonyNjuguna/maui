@@ -123,4 +123,7 @@
   <data name="XamlParsingFailed" xml:space="preserve">
     <value>XAML parsing failed</value>
   </data>
+  <data name="XamlCompFalseMessage" xml:space="preserve">
+    <value>Setting &lt;?xaml-comp compile="false" ?&gt; prevent code optimization and trimming.</value>
+  </data>
 </root>

@@ -421,5 +421,23 @@ namespace Microsoft.Maui.Controls.Build.Tasks {
                 return ResourceManager.GetString("XamlCompilationDisabled", resourceCulture);
             }
         }
+
+        /// <summary>
+        /// Looks up a localized message for BindingSource set
+        /// </summary>
+        internal static string BindingSourceSet {
+            get {
+                return ResourceManager.GetString("BindingSourceSet", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized message for BindingAsPropertyValue
+        /// </summary>
+        internal static string BindingAsPropertyValue {
+            get {
+                return ResourceManager.GetString("BindingAsPropertyValue", resourceCulture);
+            }
+        }
     }
 }

@@ -67,6 +67,8 @@ namespace Microsoft.Maui.Controls.Build.Tasks
 		public static BuildExceptionCode BindingIndexerTypeUnsupported = new BuildExceptionCode("XFC", 0043, nameof(BindingIndexerTypeUnsupported), "");
 		public static BuildExceptionCode BindingIndexerParse = new BuildExceptionCode("XFC", 0044, nameof(BindingIndexerParse), "");
 		public static BuildExceptionCode BindingPropertyNotFound = new BuildExceptionCode("XFC", 0045, nameof(BindingPropertyNotFound), "");
+		public static BuildExceptionCode BindingSourceSet = new BuildExceptionCode("XC", 0046, nameof(BindingSourceSet), "");
+		public static BuildExceptionCode BindingAsPropertyValue = new BuildExceptionCode("XC", 0047, nameof(BindingAsPropertyValue), "");
 
 		//XAML issues
 		public static BuildExceptionCode MarkupNotClosed = new BuildExceptionCode("XFC", 0060, nameof(MarkupNotClosed), "");

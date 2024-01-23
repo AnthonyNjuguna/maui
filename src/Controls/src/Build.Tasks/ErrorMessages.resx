@@ -261,5 +261,10 @@
     <value>XamlCompilation disabled using [XamlCompilation(XamlCompilationOptions.Skip)] at {0}.</value>
     <comment>0 is the assembly or type attributes</comment>
   </data>
-  
+  <data name="BindingSourceSet" xml:space="preserve">
+    <value>At this time, bindings with a Source property can not be compiled. The issue will be adressed in a future release. This might affect trimming or aot.</value>
+  </data>
+  <data name="BindingAsPropertyValue" xml:space="preserve">
+    <value>At this time, {Binding} used as a property value can not be compiled. The issue will be adressed in a future release. This might affect trimming or aot</value>
+  </data>
 </root>

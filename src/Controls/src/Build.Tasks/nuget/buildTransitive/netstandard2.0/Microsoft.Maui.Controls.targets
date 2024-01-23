@@ -151,6 +151,10 @@
 		<_MauiXamlCValidateOnly Condition="'$(Configuration)' == 'Debug' AND '$(_MauiForceXamlCForDebug)' != 'True'">True</_MauiXamlCValidateOnly>
 		<_MauiXamlCValidateOnly Condition="'$(BuildingForLiveUnitTesting)' == 'True' ">True</_MauiXamlCValidateOnly>
 	    </PropertyGroup>
+	    <Warning
+		Text="MauiXamlCValidateOnly set to true prevents trimming" 
+		Code="XC0011"
+		Condition="'$(MauiXamlCValidateOnly)' == 'True'" />
 		<XamlCTask
 			Assembly = "$(IntermediateOutputPath)$(TargetFileName)"
 			ReferencePath = "@(ReferencePath)"

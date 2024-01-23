@@ -52,6 +52,7 @@ namespace Microsoft.Maui.Controls.Build.Tasks
 		public static BuildExceptionCode AdderMissing = new BuildExceptionCode("XFC", 0008, nameof(AdderMissing), "");
 		public static BuildExceptionCode MemberResolution = new BuildExceptionCode("XFC", 0009, nameof(MemberResolution), "");
 		public static BuildExceptionCode XamlCompilationDisabled = new BuildExceptionCode("XC", 0010, nameof(XamlCompilationDisabled), "");
+		//XC0011 reserved in .targets for MauiXamlCValidateOnly
 
 		//BP,BO
 		public static BuildExceptionCode BPName = new BuildExceptionCode("XFC", 0020, nameof(BPName), "");

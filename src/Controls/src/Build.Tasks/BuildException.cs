@@ -51,6 +51,7 @@ namespace Microsoft.Maui.Controls.Build.Tasks
 		public static BuildExceptionCode EnumValueMissing = new BuildExceptionCode("XFC", 0007, nameof(EnumValueMissing), "");
 		public static BuildExceptionCode AdderMissing = new BuildExceptionCode("XFC", 0008, nameof(AdderMissing), "");
 		public static BuildExceptionCode MemberResolution = new BuildExceptionCode("XFC", 0009, nameof(MemberResolution), "");
+		public static BuildExceptionCode XamlCompilationDisabled = new BuildExceptionCode("XC", 0010, nameof(XamlCompilationDisabled), "");
 
 		//BP,BO
 		public static BuildExceptionCode BPName = new BuildExceptionCode("XFC", 0020, nameof(BPName), "");

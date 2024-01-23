@@ -411,5 +411,15 @@ namespace Microsoft.Maui.Controls.Build.Tasks {
                 return ResourceManager.GetString("BindingWithNullDataType", resourceCulture);
             }
         }
+        
+        /// <summary>
+        /// Looks up a localized message for XamlCompilation disabled
+        /// </summary>
+        /// <returns>The error message.</returns>
+        internal static string XamlCompilationDisabled {
+            get {
+                return ResourceManager.GetString("XamlCompilationDisabled", resourceCulture);
+            }
+        }
     }
 }

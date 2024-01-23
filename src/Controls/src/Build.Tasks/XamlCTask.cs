@@ -169,8 +169,10 @@ namespace Microsoft.Maui.Controls.Build.Tasks
 								ca => ca.AttributeType.FullName == "Microsoft.Maui.Controls.Xaml.XamlCompilationAttribute")) != null)
 					{
 						var options = (XamlCompilationOptions)xamlcAttr.ConstructorArguments[0].Value;
-						if ((options & XamlCompilationOptions.Skip) == XamlCompilationOptions.Skip)
+						if ((options & XamlCompilationOptions.Skip) == XamlCompilationOptions.Skip) {
 							skipassembly = true;
+							LoggingHelper.LogWarningOrError(BuildExceptionCode.XamlCompilationDisabled, null, 0, 0, 0, 0, Assembly);
+						}
 						if ((options & XamlCompilationOptions.Compile) == XamlCompilationOptions.Compile)
 							skipassembly = false;
 					}
@@ -184,8 +186,11 @@ namespace Microsoft.Maui.Controls.Build.Tasks
 									ca => ca.AttributeType.FullName == "Microsoft.Maui.Controls.Xaml.XamlCompilationAttribute")) != null)
 						{
 							var options = (XamlCompilationOptions)xamlcAttr.ConstructorArguments[0].Value;
-							if ((options & XamlCompilationOptions.Skip) == XamlCompilationOptions.Skip)
+							if ((options & XamlCompilationOptions.Skip) == XamlCompilationOptions.Skip){
 								skipmodule = true;
+								LoggingHelper.LogWarningOrError(BuildExceptionCode.XamlCompilationDisabled, null, 0, 0, 0, 0, module);
+
+							}
 							if ((options & XamlCompilationOptions.Compile) == XamlCompilationOptions.Compile)
 								skipmodule = false;
 						}
@@ -214,8 +219,10 @@ namespace Microsoft.Maui.Controls.Build.Tasks
 										ca => ca.AttributeType.FullName == "Microsoft.Maui.Controls.Xaml.XamlCompilationAttribute")) != null)
 							{
 								var options = (XamlCompilationOptions)xamlcAttr.ConstructorArguments[0].Value;
-								if ((options & XamlCompilationOptions.Skip) == XamlCompilationOptions.Skip)
+								if ((options & XamlCompilationOptions.Skip) == XamlCompilationOptions.Skip) {
 									skiptype = true;
+									LoggingHelper.LogWarningOrError(BuildExceptionCode.XamlCompilationDisabled, null, 0, 0, 0, 0, typeDef.FullName);
+								}
 								if ((options & XamlCompilationOptions.Compile) == XamlCompilationOptions.Compile)
 									skiptype = false;
 							}

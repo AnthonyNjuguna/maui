@@ -257,5 +257,9 @@
   <data name="XKeyNotLiteral" xml:space="preserve">
     <value>x:Key expects a string literal.</value>
   </data>
+  <data name="XamlCompilationDisabled" xml:space="preserve">
+    <value>XamlCompilation disabled using [XamlCompilation(XamlCompilationOptions.Skip)] at {0}.</value>
+    <comment>0 is the assembly or type attributes</comment>
+  </data>
   
 </root>

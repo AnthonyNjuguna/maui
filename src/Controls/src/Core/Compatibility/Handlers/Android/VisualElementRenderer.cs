@@ -11,6 +11,10 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 	public abstract partial class VisualElementRenderer<TElement> : AViewGroup, IPlatformViewHandler
 		where TElement : Element, IView
 	{
+		internal bool CacheMeasure { get; set; } = false;
+		int _width;
+		int _height;
+
 		object? IElementHandler.PlatformView
 		{
 			get => ChildCount > 0 ? GetChildAt(0) : this;
@@ -55,9 +59,6 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			}
 		}
 
-		internal bool CacheMeasure { get; set; } = false;
-		int width;
-		int height;
 		protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
 		{
 			if (ChildCount > 0)
@@ -65,14 +66,14 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				var platformView = GetChildAt(0);
 				if (platformView != null)
 				{
-					if (CacheMeasure && widthMeasureSpec == width && heightMeasureSpec == height)
+					if (CacheMeasure && widthMeasureSpec == _width && heightMeasureSpec == _height)
 					{
 						SetMeasuredDimension(platformView.MeasuredWidth, platformView.MeasuredHeight);
 						return;
 					}
 
-					width = widthMeasureSpec;
-					height = heightMeasureSpec;
+					_width = widthMeasureSpec;
+					_height = heightMeasureSpec;
 
 					platformView.Measure(widthMeasureSpec, heightMeasureSpec);
 					SetMeasuredDimension(platformView.MeasuredWidth, platformView.MeasuredHeight);

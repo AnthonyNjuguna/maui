@@ -25,6 +25,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 		public TableViewRenderer(Context context) : base(context, Mapper, CommandMapper)
 		{
 			AutoPackage = false;
+			CacheMeasure = true;
 		}
 
 		protected virtual TableViewModelRenderer GetModelRenderer(AListView listView, TableView view)

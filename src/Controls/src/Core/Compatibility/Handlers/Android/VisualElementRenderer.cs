@@ -55,6 +55,9 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			}
 		}
 
+		internal bool CacheMeasure { get; set; } = false;
+		int width;
+		int height;
 		protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
 		{
 			if (ChildCount > 0)
@@ -62,6 +65,15 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				var platformView = GetChildAt(0);
 				if (platformView != null)
 				{
+					if (CacheMeasure && widthMeasureSpec == width && heightMeasureSpec == height)
+					{
+						SetMeasuredDimension(platformView.MeasuredWidth, platformView.MeasuredHeight);
+						return;
+					}
+
+					width = widthMeasureSpec;
+					height = heightMeasureSpec;
+
 					platformView.Measure(widthMeasureSpec, heightMeasureSpec);
 					SetMeasuredDimension(platformView.MeasuredWidth, platformView.MeasuredHeight);
 					return;

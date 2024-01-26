@@ -431,13 +431,5 @@ namespace Microsoft.Maui.Controls.Build.Tasks {
             }
         }
 
-        /// <summary>
-        /// Looks up a localized message for BindingAsPropertyValue
-        /// </summary>
-        internal static string BindingAsPropertyValue {
-            get {
-                return ResourceManager.GetString("BindingAsPropertyValue", resourceCulture);
-            }
-        }
     }
 }

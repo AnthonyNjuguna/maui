@@ -22,7 +22,7 @@ namespace Microsoft.Maui.Controls.Xaml.UnitTests
 			public void FailOnUnresolvedDataType([Values(true)] bool useCompiledXaml)
 			{
 				if (useCompiledXaml)
-					Assert.DoesNotThrow(() => MockCompiler.Compile(typeof(Gh5240)));
+					Assert.Throws<Build.Tasks.BuildException>(() => MockCompiler.Compile(typeof(Gh5240)));
 			}
 		}
 	}

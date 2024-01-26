@@ -289,9 +289,7 @@ namespace Microsoft.Maui.Controls.Build.Tasks
 				var acceptEmptyServiceProvider = vardefref.VariableDefinition.VariableType.GetCustomAttribute(context.Cache, module, ("Microsoft.Maui.Controls", "Microsoft.Maui.Controls.Xaml", "AcceptEmptyServiceProviderAttribute")) != null;
 				if (vardefref.VariableDefinition.VariableType.FullName == "Microsoft.Maui.Controls.Xaml.BindingExtension") {
 					if (node.Properties != null && node.Properties.ContainsKey(new XmlName("", "Source"))) //do not compile bindings if Source is set
-						context.LoggingHelper.LogWarningOrError(BuildExceptionCode.BindingSourceSet, context.XamlFilePath, node.LineNumber, node.LinePosition, 0, 0, null);
-					else if (bpRef == null) //do not compile bindings if we're not gonna SetBinding
-						context.LoggingHelper.LogWarningOrError(BuildExceptionCode.BindingAsPropertyValue, context.XamlFilePath, node.LineNumber, node.LinePosition, 0, 0, null);
+						context.LoggingHelper.LogWarningOrError(BuildExceptionCode.BindingSourceSet, context.XamlFilePath, node.LineNumber, node.LinePosition, 0, 0, null);					
 					else foreach (var instruction in CompileBindingPath(node, context, vardefref.VariableDefinition))
 						yield return instruction;
 				}

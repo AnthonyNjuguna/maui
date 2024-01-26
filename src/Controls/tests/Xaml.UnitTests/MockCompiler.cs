@@ -14,7 +14,7 @@ namespace Microsoft.Maui.Controls.Xaml.UnitTests
 			Compile(type, out _, targetFramework);
 		}
 
-		public static void Compile(Type type, out MethodDefinition methodDefinition, string targetFramework = null)
+		public static void Compile(Type type, out MethodDefinition methodDefinition, string targetFramework = null, string warningsAsErrors = null)
 		{
 			methodDefinition = null;
 			var assembly = type.Assembly.Location;
@@ -32,7 +32,8 @@ namespace Microsoft.Maui.Controls.Xaml.UnitTests
 				ValidateOnly = true,
 				Type = type.FullName,
 				TargetFramework = targetFramework,
-				BuildEngine = new MSBuild.UnitTests.DummyBuildEngine()
+				BuildEngine = new MSBuild.UnitTests.DummyBuildEngine(),
+				WarningsAsErrors = warningsAsErrors,
 			};
 
 			if (xamlc.Execute(out IList<Exception> exceptions) || exceptions == null || !exceptions.Any())

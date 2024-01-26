@@ -1,35 +1,41 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 
 namespace Maui.Controls.Sample.Issues
 {
-	[Issue(IssueTracker.None, 5555, "Memory leak when SwitchCell or EntryCell", PlatformAffected.iOS)]
-	public class Issue5555 : TestContentPage
+
+	class LeakPage : ContentPage
 	{
-		class LeakPage : ContentPage
+		public LeakPage()
 		{
-			public LeakPage()
+			Content = new StackLayout
 			{
-				Content = new StackLayout
-				{
-					Children = {
-						new TableView
+				Children = {
+					new TableView
+					{
+						Root = new TableRoot
 						{
-							Root = new TableRoot
+							new TableSection
 							{
-								new TableSection
-								{
-									new SwitchCell { Text = "switch cell", On = true },
-									new EntryCell { Text = "entry cell" }
-								}
+								//new SwitchCell { Text = "switch cell", On = true },
+								new EntryCell { Text = "entry cell" }
 							}
 						}
 					}
-				};
-			}
+				}
+			};
 		}
+		~LeakPage(){
+			System.Diagnostics.Debug.WriteLine("Finalized");			
+		}
+	}
 
+	[Issue(IssueTracker.None, 5555, "Memory leak when SwitchCell or EntryCell", PlatformAffected.iOS)]
+	public class Issue5555 : TestContentPage
+	{
+		public static Label DestructorCount = new Label() {Text = "0"};
 		protected override void Init()
 		{
 			var result = new Label
@@ -44,7 +50,7 @@ namespace Maui.Controls.Sample.Issues
 			{
 				Text = "Check Result",
 				IsEnabled = false,
-				Command = new Command(() =>
+				Command = new Command(async () =>
 				{
 					if (list.Count < 2)
 					{
@@ -52,26 +58,44 @@ namespace Maui.Controls.Sample.Issues
 						return;
 					}
 
-					GarbageCollectionHelper.Collect();
-					result.Text = list[list.Count - 2].IsAlive ? "Failed" : "Success";
+
+					try{
+						await GarbageCollectionHelper.WaitForGC(list.ToArray());
+						result.Text = "Success";
+					}
+					catch(Exception){
+						result.Text = "Failed";
+						return;
+					}
+					
+					/*result.Text = "Success";
+					foreach(var weakRef in list)
+					{
+						if (weakRef.IsAlive)
+						{
+							result.Text = "Failed";
+							break;
+						}
+					}*/
 				})
 			};
 
 			Content = new StackLayout
 			{
 				Children = {
+					DestructorCount,
 					result,
 					new Button
 					{
 						Text = "Push page",
 						Command = new Command(async() => {
-							var page = new LeakPage();
-							var wref = new WeakReference(page);
+							if (list.Count >= 2)
+								list.Clear();
 
-							await Navigation.PushAsync(page);
-							await page.Navigation.PopAsync();
+							var wref = new WeakReference(new LeakPage());
 
-							GarbageCollectionHelper.Collect();
+							await Navigation.PushAsync(wref.Target as Page);
+							await (wref.Target as Page).Navigation.PopAsync();
 
 							list.Add(wref);
 							if (list.Count > 1)

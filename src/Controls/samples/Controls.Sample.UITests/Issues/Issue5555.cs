@@ -6,6 +6,38 @@ using Microsoft.Maui.Controls;
 namespace Maui.Controls.Sample.Issues
 {
 
+#if ANDROID
+	public class TableViewLeakEntryCellRenderer : Microsoft.Maui.Controls.Handlers.Compatibility.CellRenderer
+	{
+		TableViewLeakEntryCellView _view;
+
+		protected override global::Android.Views.View GetCellCore(
+			Cell item, global::Android.Views.View convertView, global::Android.Views.ViewGroup parent, global::Android.Content.Context context)
+		{
+			if (item?.Parent is TableView && item.Handler?.PlatformView is TableViewLeakEntryCellView entryCellView)
+			{
+				// TableView doesn't use convertView
+				_view = entryCellView;
+				return _view;
+			}
+
+			if ((_view = convertView as TableViewLeakEntryCellView) == null)
+				_view = new TableViewLeakEntryCellView(context, item);
+
+			return _view;
+		}
+	}
+
+	public sealed class TableViewLeakEntryCellView : global::Android.Widget.LinearLayout
+	{
+
+		public TableViewLeakEntryCellView(global::Android.Content.Context context, Cell cell) : base(context)
+		{
+			AddView(new global::Android.Widget.EditText(context)); // Leaks		
+		}
+	}
+#endif
+
 	class LeakPage : ContentPage
 	{
 		public LeakPage()

@@ -13,6 +13,12 @@ namespace Maui.Controls.Sample
 				.CreateBuilder()
 				.UseMauiMaps()
 				.UseMauiApp<App>()
+				#if ANDROID
+				.ConfigureMauiHandlers(handlers =>
+				{
+					handlers.AddHandler<EntryCell, Maui.Controls.Sample.Issues.TableViewLeakEntryCellRenderer>();
+				})
+				#endif
 				.Build();
 	}
 

@@ -23,9 +23,12 @@ namespace Microsoft.Maui.Controls.Internals
 		void INameScope.RegisterName(string name, object scopedElement)
 		{
 			if (_names.ContainsKey(name))
+			{
 				throw new ArgumentException($"An element with the key '{name}' already exists in NameScope", nameof(name));
+			}
 
 			_names[name] = scopedElement;
+			_values[scopedElement] = name;
 			_values[scopedElement] = name;
 		}
 
@@ -41,21 +44,87 @@ namespace Microsoft.Maui.Controls.Internals
 		public static void SetNameScope(BindableObject bindable, INameScope value)
 		{
 			if (bindable.GetValue(NameScopeProperty) == null)
+			{
 				bindable.SetValue(NameScopeProperty, value);
+			}
+			}
 		}
 
 		void INameScope.UnregisterName(string name)
 		{
 			if (name == null)
+
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Before:
 				throw new ArgumentNullException(nameof(name));
 
 			if (name == "")
 				throw new ArgumentException("name was provided as empty string.", nameof(name));
+After:
+			{
+				throw new ArgumentNullException(nameof(name));
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
+				throw new ArgumentNullException(nameof(name));
+
+			if (name == "")
+				throw new ArgumentException("name was provided as empty string.", nameof(name));
+After:
+			{
+				throw new ArgumentNullException(nameof(name));
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Before:
+				throw new ArgumentNullException(nameof(name));
+
+			if (name == "")
+				throw new ArgumentException("name was provided as empty string.", nameof(name));
+After:
+			{
+				throw new ArgumentNullException(nameof(name));
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Before:
+				throw new ArgumentNullException(nameof(name));
+
+			if (name == "")
+				throw new ArgumentException("name was provided as empty string.", nameof(name));
+After:
+			{
+				throw new ArgumentNullException(nameof(name));
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Before:
+				throw new ArgumentNullException(nameof(name));
+
+			if (name == "")
+				throw new ArgumentException("name was provided as empty string.", nameof(name));
+After:
+			{
+				throw new ArgumentNullException(nameof(name));
+*/
+			{
+				throw new ArgumentNullException(nameof(name));
+			}
+			}
+
+			if (name == "")
+			{
+				throw new ArgumentException("name was provided as empty string.", nameof(name));
+			}
 
 			if (!_names.ContainsKey(name))
+			{
 				throw new ArgumentException("name provided had not been registered.", nameof(name));
+			}
 
 			_values.Remove(_names[name]);
+			_names.Remove(name);
 			_names.Remove(name);
 		}
 	}

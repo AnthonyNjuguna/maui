@@ -12,12 +12,50 @@ namespace Microsoft.Maui.DeviceTests
 		public static bool ARGBEquivalent(UIColor? color1, UIColor? color2, double? tolerance = null)
 		{
 			if (tolerance is null)
+
+/* Unmerged change from project 'TestUtils.DeviceTests(net8.0-maccatalyst)'
+Before:
 				tolerance = MinTolerance;
 
 			if (color1 == null && color2 == null)
 				return true;
 			if (color1 == null || color2 == null)
+After:
+			{
+				tolerance = MinTolerance;
+			}
+
+			if (color1 == null && color2 == null)
+			{
+				return true;
+			}
+
+			if (color1 == null || color2 == null)
+*/
+			{
+				tolerance = MinTolerance;
+			}
+
+			if (color1 == null && color2 == null)
+			{
+			{
+				return true;
+
+/* Unmerged change from project 'TestUtils.DeviceTests(net8.0-maccatalyst)'
+Before:
+			color1.GetRGBA(out nfloat red1, out nfloat green1, out nfloat blue1, out nfloat alpha1);
+			color2.GetRGBA(out nfloat red2, out nfloat green2, out nfloat blue2, out nfloat alpha2);
+After:
+			}
+
+			color1.GetRGBA(out nfloat red2, out nfloat green2, out nfloat blue2, out nfloat alpha2);
+*/
+			}
+
+			if (color1 == null || color2 == null)
+			{
 				return false;
+			}
 
 			color1.GetRGBA(out nfloat red1, out nfloat green1, out nfloat blue1, out nfloat alpha1);
 			color2.GetRGBA(out nfloat red2, out nfloat green2, out nfloat blue2, out nfloat alpha2);

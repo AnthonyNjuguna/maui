@@ -24,20 +24,32 @@ namespace Microsoft.Maui.Platform
 		public static void UpdateUserAgent(this WKWebView platformWebView, IWebView webView)
 		{
 			if (webView.UserAgent != null)
+			{
 				platformWebView.CustomUserAgent = webView.UserAgent;
+			}
 			else
+			{
 				webView.UserAgent =
 					platformWebView.CustomUserAgent ??
 					platformWebView.ValueForKey(new Foundation.NSString("userAgent"))?.ToString();
+			}
+			}
 		}
 
 		public static void UpdateGoBack(this WKWebView platformWebView, IWebView webView)
 		{
 			if (platformWebView == null)
+			{
 				return;
+			}
 
 			if (platformWebView.CanGoBack)
+			{
 				platformWebView.GoBack();
+			}
+
+			platformWebView.UpdateCanGoBackForward(webView);
+			}
 
 			platformWebView.UpdateCanGoBackForward(webView);
 		}
@@ -45,10 +57,17 @@ namespace Microsoft.Maui.Platform
 		public static void UpdateGoForward(this WKWebView platformWebView, IWebView webView)
 		{
 			if (platformWebView == null)
+			{
 				return;
+			}
 
 			if (platformWebView.CanGoForward)
+			{
 				platformWebView.GoForward();
+			}
+
+			platformWebView.UpdateCanGoBackForward(webView);
+			}
 
 			platformWebView.UpdateCanGoBackForward(webView);
 		}

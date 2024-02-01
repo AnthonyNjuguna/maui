@@ -21,7 +21,9 @@ namespace Microsoft.Maui.Graphics
 				_gradientStops = new PaintGradientStop[source.GradientStops.Length];
 
 				for (var i = 0; i < _gradientStops.Length; i++)
+				{
 					_gradientStops[i] = new PaintGradientStop(source.GradientStops[i]);
+				}
 			}
 		}
 
@@ -33,7 +35,9 @@ namespace Microsoft.Maui.Graphics
 				_gradientStops = value;
 
 				if (_gradientStops == null || _gradientStops.Length == 0)
+				{
 					_gradientStops = new[] { new PaintGradientStop(0, Colors.White), new PaintGradientStop(1, Colors.White) };
+				}
 			}
 		}
 
@@ -144,7 +148,100 @@ namespace Microsoft.Maui.Graphics
 			var newStops = new PaintGradientStop[oldStops.Length + 1];
 
 			for (var i = 0; i < oldStops.Length; i++)
-				newStops[i] = oldStops[i];
+			{
+	
+/* Unmerged change from project 'Graphics(net8.0)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net8.0-maccatalyst)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net8.0-android)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net8.0-windows10.0.19041)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net8.0-windows10.0.20348)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net8.0-macos)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net7.0)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-ios)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-maccatalyst)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-android)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-windows10.0.19041)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-windows10.0.20348)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-macos)'
+Before:
+			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
+After:
+			newStops[i] = oldStops[i];
+*/
+			newStops[i] = oldStops[i];
+			}
 
 			newStops[oldStops.Length] = new PaintGradientStop(offset, color);
 

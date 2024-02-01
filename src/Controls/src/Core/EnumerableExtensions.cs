@@ -10,6 +10,9 @@ namespace Microsoft.Maui.Controls.Internals
 		public static bool HasChildGesturesFor<T>(this IEnumerable<GestureElement> elements, Func<T, bool> predicate = null) where T : GestureRecognizer
 		{
 			if (elements == null)
+
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Before:
 				return false;
 
 			if (predicate == null)
@@ -22,14 +25,32 @@ namespace Microsoft.Maui.Controls.Internals
 					if (gesture != null && predicate(gesture))
 						return true;
 				}
+After:
+			{
+				return false;
+			}
 
-			return false;
-		}
+			if (predicate == null)
+			{
+				predicate = x => true;
+			}
 
-		public static IEnumerable<T> GetChildGesturesFor<T>(this IEnumerable<GestureElement> elements, Func<T, bool> predicate = null) where T : GestureRecognizer
-		{
-			if (elements == null)
-				yield break;
+			foreach (var element in elements)
+			{
+				foreach (var item in element.GestureRecognizers)
+				{
+					var gesture = item as T;
+					if (gesture != null && predicate(gesture))
+					{
+						return true;
+					}
+				}
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
+				return false;
 
 			if (predicate == null)
 				predicate = x => true;
@@ -39,17 +60,201 @@ namespace Microsoft.Maui.Controls.Internals
 				{
 					var gesture = item as T;
 					if (gesture != null && predicate(gesture))
-						yield return gesture;
+						return true;
 				}
+After:
+			{
+				return false;
+			}
+
+			if (predicate == null)
+			{
+				predicate = x => true;
+			}
+
+			foreach (var element in elements)
+			{
+				foreach (var item in element.GestureRecognizers)
+				{
+					var gesture = item as T;
+					if (gesture != null && predicate(gesture))
+					{
+						return true;
+					}
+				}
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Before:
+				return false;
+
+			if (predicate == null)
+				predicate = x => true;
+
+			foreach (var element in elements)
+				foreach (var item in element.GestureRecognizers)
+				{
+					var gesture = item as T;
+					if (gesture != null && predicate(gesture))
+						return true;
+				}
+After:
+			{
+				return false;
+			}
+
+			if (predicate == null)
+			{
+				predicate = x => true;
+			}
+
+			foreach (var element in elements)
+			{
+				foreach (var item in element.GestureRecognizers)
+				{
+					var gesture = item as T;
+					if (gesture != null && predicate(gesture))
+					{
+						return true;
+					}
+				}
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Before:
+				return false;
+
+			if (predicate == null)
+				predicate = x => true;
+
+			foreach (var element in elements)
+				foreach (var item in element.GestureRecognizers)
+				{
+					var gesture = item as T;
+					if (gesture != null && predicate(gesture))
+						return true;
+				}
+After:
+			{
+				return false;
+			}
+
+			if (predicate == null)
+			{
+				predicate = x => true;
+			}
+
+			foreach (var element in elements)
+			{
+				foreach (var item in element.GestureRecognizers)
+				{
+					var gesture = item as T;
+					if (gesture != null && predicate(gesture))
+					{
+						return true;
+					}
+				}
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Before:
+				return false;
+
+			if (predicate == null)
+				predicate = x => true;
+
+			foreach (var element in elements)
+				foreach (var item in element.GestureRecognizers)
+				{
+					var gesture = item as T;
+					if (gesture != null && predicate(gesture))
+						return true;
+				}
+After:
+			{
+				return false;
+			}
+
+			if (predicate == null)
+			{
+				predicate = x => true;
+			}
+
+			foreach (var element in elements)
+			{
+				foreach (var item in element.GestureRecognizers)
+				{
+					var gesture = item as T;
+					if (gesture != null && predicate(gesture))
+					{
+						return true;
+					}
+				}
+			}
+*/
+			{
+				return false;
+			}
+
+			if (predicate == null)
+			{
+				predicate = x => true;
+			}
+
+			foreach (var element in elements)
+			{
+				foreach (var item in element.GestureRecognizers)
+				{
+					var gesture = item as T;
+					if (gesture != null && predicate(gesture))
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		public static IEnumerable<T> GetChildGesturesFor<T>(this IEnumerable<GestureElement> elements, Func<T, bool> predicate = null) where T : GestureRecognizer
+		{
+			if (elements == null)
+			{
+				yield break;
+			}
+
+			if (predicate == null)
+			{
+				predicate = x => true;
+			}
+
+			foreach (var element in elements)
+			{
+				foreach (var item in element.GestureRecognizers)
+				{
+					var gesture = item as T;
+					if (gesture != null && predicate(gesture))
+					{
+						yield return gesture;
+					}
+				}
+			}
 		}
 
 		public static IEnumerable<T> GetGesturesFor<T>(this IEnumerable<IGestureRecognizer> gestures, Func<T, bool> predicate = null) where T : GestureRecognizer
 		{
 			if (gestures == null)
+			{
 				yield break;
+			}
 
 			if (predicate == null)
+			{
 				predicate = x => true;
+			}
 
 			foreach (IGestureRecognizer item in new List<IGestureRecognizer>(gestures))
 			{

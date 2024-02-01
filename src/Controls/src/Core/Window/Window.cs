@@ -181,20 +181,32 @@ namespace Microsoft.Maui.Controls
 		double GetPositionCoordinate(BindableProperty property)
 		{
 			if (!IsSet(property))
+			{
 				return Primitives.Dimension.Unset;
+			}
+
 			var coord = (double)GetValue(property);
 			if (!Primitives.Dimension.IsExplicitSet(coord))
+			{
 				return Primitives.Dimension.Unset;
+			}
+
 			return coord;
 		}
 
 		double GetSizeCoordinate(BindableProperty property)
 		{
 			if (!IsSet(property))
+			{
 				return Primitives.Dimension.Unset;
+			}
+
 			var coord = (double)GetValue(property);
 			if (coord == -1 || !Primitives.Dimension.IsExplicitSet(coord))
+			{
 				return Primitives.Dimension.Unset;
+			}
+
 			return ValidatePositive(coord);
 		}
 
@@ -207,7 +219,9 @@ namespace Microsoft.Maui.Controls
 			var width = Width;
 			var height = Height;
 			if (new Rect(x, y, width, height) == frame)
+			{
 				return;
+			}
 
 			_batchFrameUpdate++;
 
@@ -218,12 +232,99 @@ namespace Microsoft.Maui.Controls
 
 			SetValueCore(XProperty, frame.X, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
 			SetValueCore(YProperty, frame.Y, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Added:
+			SetValueCore(WidthProperty, frame.Width, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+			SetValueCore(HeightProperty, frame.Height, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-ios)'
+Added:
+			SetValueCore(WidthProperty, frame.Width, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+			SetValueCore(HeightProperty, frame.Height, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Added:
+			SetValueCore(WidthProperty, frame.Width, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+			SetValueCore(HeightProperty, frame.Height, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Added:
+			SetValueCore(WidthProperty, frame.Width, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+			SetValueCore(HeightProperty, frame.Height, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Added:
+			SetValueCore(WidthProperty, frame.Width, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+			SetValueCore(HeightProperty, frame.Height, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Added:
+			SetValueCore(WidthProperty, frame.Width, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+			SetValueCore(HeightProperty, frame.Height, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Before:
+				_batchFrameUpdate = 0;
+After:
+			{
+				_batchFrameUpdate = 0;
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-ios)'
+Before:
+				_batchFrameUpdate = 0;
+After:
+			{
+				_batchFrameUpdate = 0;
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
+				_batchFrameUpdate = 0;
+After:
+			{
+				_batchFrameUpdate = 0;
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Before:
+				_batchFrameUpdate = 0;
+After:
+			{
+				_batchFrameUpdate = 0;
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Before:
+				_batchFrameUpdate = 0;
+After:
+			{
+				_batchFrameUpdate = 0;
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Before:
+				_batchFrameUpdate = 0;
+After:
+			{
+				_batchFrameUpdate = 0;
+*/
 			SetValueCore(WidthProperty, frame.Width, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
 			SetValueCore(HeightProperty, frame.Height, SetValueFlags.None, SetValuePrivateFlags.Silent, SetterSpecificity.FromHandler);
 
 			_batchFrameUpdate--;
 			if (_batchFrameUpdate < 0)
+			{
 				_batchFrameUpdate = 0;
+			}
+			}
 
 			if (_batchFrameUpdate == 0)
 			{
@@ -239,7 +340,10 @@ namespace Microsoft.Maui.Controls
 			void SetPropertyChanging(BindableProperty property, string name, double oldValue, double newValue)
 			{
 				if (oldValue == newValue)
+				{
+				{
 					return;
+				}
 
 				property.PropertyChanging?.Invoke(this, oldValue, newValue);
 				OnPropertyChanging(name);
@@ -249,7 +353,10 @@ namespace Microsoft.Maui.Controls
 			void SetPropertyChanged(BindableProperty property, string name, double oldValue, double newValue)
 			{
 				if (oldValue == newValue)
+				{
+				{
 					return;
+				}
 
 				OnPropertyChanged(name);
 				property.PropertyChanged?.Invoke(this, oldValue, newValue);
@@ -285,14 +392,20 @@ namespace Microsoft.Maui.Controls
 			base.OnPropertyChanged(propertyName);
 
 			if (propertyName == nameof(Page))
+			{
+			{
 				Handler?.UpdateValue(nameof(IWindow.Content));
+			}
+			}
 		}
 
 		/// <inheritdoc/>
 		public bool AddOverlay(IWindowOverlay overlay)
 		{
 			if (overlay is IVisualDiagnosticsOverlay)
+			{
 				return false;
+			}
 
 			// Add the overlay. If it's added, 
 			// Initalize the native layer if it wasn't already,
@@ -311,11 +424,15 @@ namespace Microsoft.Maui.Controls
 		public bool RemoveOverlay(IWindowOverlay overlay)
 		{
 			if (overlay is IVisualDiagnosticsOverlay)
+			{
 				return false;
+			}
 
 			var result = _overlays.Remove(overlay);
 			if (result)
+			{
 				overlay.Deinitialize();
+			}
 
 			return result;
 		}
@@ -336,12 +453,17 @@ namespace Microsoft.Maui.Controls
 			private set
 			{
 				if (_isActivated == value)
+				{
+				{
 					return;
+				}
 
 				_isActivated = value;
 
 				if (value)
+				{
 					SendWindowAppearing();
+				}
 			}
 		}
 
@@ -368,13 +490,101 @@ namespace Microsoft.Maui.Controls
 		void SetEffectiveFlowDirection(EffectiveFlowDirection value, bool fireFlowDirectionPropertyChanged)
 		{
 			if (value == _effectiveFlowDirection)
+			{
+			
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Added:
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-ios)'
+Added:
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Added:
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Added:
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Added:
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Added:
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Before:
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+After:
+			{
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-ios)'
+Before:
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+After:
+			{
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+After:
+			{
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Before:
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+After:
+			{
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Before:
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+After:
+			{
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Before:
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+After:
+			{
+				OnPropertyChanged(FlowDirectionProperty.PropertyName);
+			}
+*/
+{
 				return;
+			}
 
 			_effectiveFlowDirection = value;
 
 			if (fireFlowDirectionPropertyChanged)
+			{
 				OnPropertyChanged(FlowDirectionProperty.PropertyName);
-
+			}
 		}
 
 		static void FlowDirectionChanging(BindableObject bindable, object oldValue, object newValue)
@@ -382,7 +592,9 @@ namespace Microsoft.Maui.Controls
 			var self = (IFlowDirectionController)bindable;
 
 			if (self.EffectiveFlowDirection.IsExplicit() && oldValue == newValue)
+			{
 				return;
+			}
 
 			var newFlowDirection = ((FlowDirection)newValue).ToEffectiveFlowDirection(isExplicit: true);
 			self.EffectiveFlowDirection = newFlowDirection;
@@ -412,19 +624,28 @@ namespace Microsoft.Maui.Controls
 		internal void FinishedAddingWindowToApplication(Application application)
 		{
 			if (Parent != null)
+			{
 				SendWindowAppearing();
+			}
+			}
 		}
 
 		void SendWindowAppearing()
 		{
 			if (Navigation.ModalStack.Count == 0)
+			{
+			{
 				Page?.SendAppearing();
+			}
+			}
 		}
 
 		void SendWindowDisppearing()
 		{
 			if (Navigation.ModalStack.Count == 0)
+			{
 				Page?.SendDisappearing();
+			}
 
 			IsActivated = false;
 		}
@@ -480,7 +701,9 @@ namespace Microsoft.Maui.Controls
 		void IWindow.Created()
 		{
 			if (IsCreated)
+			{
 				throw new InvalidOperationException("Window was already created");
+			}
 
 			IsCreated = true;
 			IsDestroyed = false;
@@ -488,25 +711,33 @@ namespace Microsoft.Maui.Controls
 			Created?.Invoke(this, EventArgs.Empty);
 			OnCreated();
 			Application?.SendStart();
+			OnCreated();
+			Application?.SendStart();
 		}
 
 		void IWindow.Activated()
 		{
 			if (IsActivated)
+			{
 				throw new InvalidOperationException("Window was already activated");
+			}
 
 			IsActivated = true;
 			Activated?.Invoke(this, EventArgs.Empty);
+			OnActivated();
 			OnActivated();
 		}
 
 		void IWindow.Deactivated()
 		{
 			if (!IsActivated)
+			{
 				throw new InvalidOperationException("Window was already deactivated");
+			}
 
 			IsActivated = false;
 			Deactivated?.Invoke(this, EventArgs.Empty);
+			OnDeactivated();
 			OnDeactivated();
 		}
 
@@ -520,7 +751,9 @@ namespace Microsoft.Maui.Controls
 		void IWindow.Destroying()
 		{
 			if (IsDestroyed)
+			{
 				throw new InvalidOperationException("Window was already destroyed");
+			}
 
 			IsDestroyed = true;
 			IsCreated = false;
@@ -531,6 +764,7 @@ namespace Microsoft.Maui.Controls
 
 			AlertManager.Unsubscribe();
 			Application?.RemoveWindow(this);
+			Handler?.DisconnectHandler();
 			Handler?.DisconnectHandler();
 		}
 
@@ -596,7 +830,11 @@ namespace Microsoft.Maui.Controls
 		static void OnPageChanging(BindableObject bindable, object oldValue, object newValue)
 		{
 			if (oldValue is Page oldPage)
+			{
+			{
 				oldPage.SendDisappearing();
+			}
+			}
 		}
 
 		void OnPageChanged(Page? oldPage, Page? newPage)
@@ -611,7 +849,9 @@ namespace Microsoft.Maui.Controls
 			}
 
 			if (oldPage is Shell shell)
+			{
 				shell.PropertyChanged -= ShellPropertyChanged;
+			}
 
 			if (newPage != null)
 			{
@@ -629,11 +869,15 @@ namespace Microsoft.Maui.Controls
 				newPage.HandlerChanging += OnPageHandlerChanging;
 
 				if (newPage.Handler != null)
+				{
 					OnPageHandlerChanged(newPage, EventArgs.Empty);
+				}
 			}
 
 			if (newPage is Shell newShell)
+			{
 				newShell.PropertyChanged += ShellPropertyChanged;
+			}
 
 			Handler?.UpdateValue(nameof(IWindow.FlowDirection));
 		}
@@ -652,7 +896,11 @@ namespace Microsoft.Maui.Controls
 		void ShellPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == nameof(Shell.Title))
+			{
+			{
 				Handler?.UpdateValue(nameof(ITitledElement.Title));
+			}
+			}
 		}
 
 		bool IWindow.BackButtonClicked()

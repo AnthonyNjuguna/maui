@@ -70,7 +70,10 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 				{
 					var listProxy = (INotifyCollectionChanged)SearchController.ListProxy;
 					if (listProxy != null)
+					{
 						listProxy.CollectionChanged -= OnProxyCollectionChanged;
+					}
+
 					SearchController.ListProxyChanged -= OnListProxyChanged;
 				}
 
@@ -88,9 +91,24 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 			var template = SearchHandler.ItemTemplate;
 
 			if (template == null)
+			{
 				template = DefaultTemplate;
 
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
 			var cellId = ((IDataTemplateController)template.SelectDataTemplate(context, _context.Shell)).IdString;
+
+			var cell = (UIContainerCell)tableView.DequeueReusableCell(cellId);
+After:
+			}
+
+			var cellId = (UIContainerCell)tableView.DequeueReusableCell(cellId);
+*/
+			}
+
+			var cellId = ((IDataTemplateController)template.SelectDataTemplate(context, _context.Shell)).IdString;
+
+			var cell = (UIContainerCell)tableView.DequeueReusableCell(cellId);
 
 			var cell = (UIContainerCell)tableView.DequeueReusableCell(cellId);
 
@@ -123,7 +141,10 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 		public override nint RowsInSection(UITableView tableView, nint section)
 		{
 			if (SearchController.ListProxy == null)
+			{
 				return 0;
+			}
+
 			return SearchController.ListProxy.Count;
 		}
 
@@ -131,7 +152,9 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 		{
 			var paths = new NSIndexPath[count];
 			for (var i = 0; i < paths.Length; i++)
+			{
 				paths[i] = NSIndexPath.FromRowSection(index + i, section);
+			}
 
 			return paths;
 		}
@@ -159,12 +182,15 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 				case NotifyCollectionChangedAction.Add:
 
 					if (e.NewStartingIndex == -1)
+					{
 						goto case NotifyCollectionChangedAction.Reset;
+					}
 
 					TableView.BeginUpdates();
 					TableView.InsertRows(GetPaths(section, e.NewStartingIndex, e.NewItems.Count), InsertRowsAnimation);
-					TableView.EndUpdates();
 
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
 					break;
 
 				case NotifyCollectionChangedAction.Remove:
@@ -199,6 +225,114 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 				case NotifyCollectionChangedAction.Replace:
 					if (e.OldStartingIndex == -1)
 						goto case NotifyCollectionChangedAction.Reset;
+					TableView.BeginUpdates();
+					TableView.ReloadRows(GetPaths(section, e.OldStartingIndex, e.OldItems.Count), ReloadRowsAnimation);
+					TableView.EndUpdates();
+After:
+					TableView.EndUpdates();
+*/
+					TableView.EndUpdates();
+
+					break;
+
+				case NotifyCollectionChangedAction.Remove:
+					if (e.OldStartingIndex == -1)
+					{
+						goto case NotifyCollectionChangedAction.Reset;
+					}
+
+					TableView.BeginUpdates();
+					TableView.DeleteRows(GetPaths(section, e.OldStartingIndex, e.OldItems.Count), DeleteRowsAnimation);
+
+					TableView.EndUpdates();
+					break;
+
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
+				case NotifyCollectionChangedAction.Reset:
+					TableView.ReloadData();
+					return;
+After:
+				case NotifyCollectionChangedAction.Remove:
+					if (e.OldStartingIndex == -1)
+					{
+						goto case NotifyCollectionChangedAction.Reset;
+					}
+
+					TableView.ReloadData();
+					TableView.DeleteRows(GetPaths(section, e.OldStartingIndex, e.OldItems.Count), DeleteRowsAnimation);
+
+					TableView.EndUpdates();
+					break;
+
+				case NotifyCollectionChangedAction.Move:
+					if (e.OldStartingIndex == -1 || e.NewStartingIndex == -1)
+					{
+						goto case NotifyCollectionChangedAction.Reset;
+					}
+
+					TableView.BeginUpdates();
+					for (var i = 0; i < e.OldItems.Count; i++)
+					{
+						var oldIndex = e.OldStartingIndex;
+						var newIndex = e.NewStartingIndex;
+
+						if (e.NewStartingIndex < e.OldStartingIndex)
+						{
+							oldIndex += i;
+							newIndex += i;
+						}
+
+						TableView.MoveRow(NSIndexPath.FromRowSection(oldIndex, section), NSIndexPath.FromRowSection(newIndex, section));
+					}
+					TableView.EndUpdates();
+					break;
+
+				case NotifyCollectionChangedAction.Replace:
+					if (e.OldStartingIndex == -1)
+					{
+						goto case NotifyCollectionChangedAction.Reset;
+					}
+
+					TableView.BeginUpdates();
+					TableView.ReloadRows(GetPaths(section, e.OldStartingIndex, e.OldItems.Count), ReloadRowsAnimation);
+					TableView.EndUpdates();
+					break;
+
+				case NotifyCollectionChangedAction.Reset:
+					TableView.ReloadData();
+					return;
+*/
+				case NotifyCollectionChangedAction.Move:
+					if (e.OldStartingIndex == -1 || e.NewStartingIndex == -1)
+					{
+						goto case NotifyCollectionChangedAction.Reset;
+					}
+
+					TableView.BeginUpdates();
+					for (var i = 0; i < e.OldItems.Count; i++)
+					{
+						var oldIndex = e.OldStartingIndex;
+						var newIndex = e.NewStartingIndex;
+
+						if (e.NewStartingIndex < e.OldStartingIndex)
+						{
+							oldIndex += i;
+							newIndex += i;
+						}
+
+						TableView.MoveRow(NSIndexPath.FromRowSection(oldIndex, section), NSIndexPath.FromRowSection(newIndex, section));
+					}
+					TableView.EndUpdates();
+					break;
+
+				case NotifyCollectionChangedAction.Replace:
+					if (e.OldStartingIndex == -1)
+					{
+						goto case NotifyCollectionChangedAction.Reset;
+					}
+
 					TableView.BeginUpdates();
 					TableView.ReloadRows(GetPaths(section, e.OldStartingIndex, e.OldItems.Count), ReloadRowsAnimation);
 					TableView.EndUpdates();

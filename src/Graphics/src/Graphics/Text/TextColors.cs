@@ -153,13 +153,239 @@ namespace Microsoft.Maui.Graphics.Text
 		public static float[] Parse(this string color)
 		{
 			if (string.IsNullOrEmpty(color))
+			{
 				return null;
 
+/* Unmerged change from project 'Graphics(net8.0-maccatalyst)'
+Before:
 			//Remove # if present
 			if (!color.StartsWith("#", StringComparison.Ordinal))
 			{
 				if (!StandardColors.TryGetValue(color, out color))
 					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net8.0-windows10.0.19041)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net8.0-windows10.0.20348)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net8.0-macos)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-ios)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-maccatalyst)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-android)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-windows10.0.19041)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-windows10.0.20348)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-macos)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+			}
+
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+				{
+					return null;
+				}
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color, out color))
+				{
+					return null;
+				}
 			}
 
 			int red = 0;
@@ -196,13 +422,239 @@ namespace Microsoft.Maui.Graphics.Text
 		public static int[] ParseAsInts(this string color)
 		{
 			if (string.IsNullOrEmpty(color))
+			{
 				return null;
 
+/* Unmerged change from project 'Graphics(net8.0-maccatalyst)'
+Before:
 			//Remove # if present
 			if (!color.StartsWith("#", StringComparison.Ordinal))
 			{
 				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
 					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net8.0-windows10.0.19041)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net8.0-windows10.0.20348)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net8.0-macos)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-ios)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-maccatalyst)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-android)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-windows10.0.19041)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-windows10.0.20348)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+
+/* Unmerged change from project 'Graphics(net7.0-macos)'
+Before:
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+					return null;
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+After:
+			}
+
+			//Remove # if present
+*/
+			}
+
+			//Remove # if present
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+				{
+					return null;
+				}
+			}
+
+			int red = 0;
+			int green = 0;
+			int blue = 0;
+			int alpha = 255;
+
+			if (!color.StartsWith("#", StringComparison.Ordinal))
+			{
+				if (!StandardColors.TryGetValue(color.ToUpperInvariant(), out color))
+				{
+					return null;
+				}
 			}
 
 			int red = 0;

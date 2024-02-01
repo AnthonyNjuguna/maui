@@ -104,6 +104,9 @@ namespace Microsoft.Maui.DeviceTests
 				}
 
 				if (isRtl)
+
+/* Unmerged change from project 'Controls.DeviceTests(net8.0-maccatalyst)'
+Before:
 					Assert.Equal(screenBounds.Width - flyoutBounds.Width, flyoutBounds.X);
 				else
 					Assert.Equal(0, flyoutBounds.X);
@@ -115,12 +118,69 @@ namespace Microsoft.Maui.DeviceTests
 
 				if (IsPad)
 				{
-					Assert.Equal(detailBoundsNotPresented, detailBounds);
+After:
+				{
+*/
+				{
+					Assert.Equal(screenBounds.Width - flyoutBounds.Width, flyoutBounds.X);
+				}
+				else
+				{
+					Assert.Equal(0, flyoutBounds.X);
+				}
 
-					if (isRtl)
+				await CloseFlyout(flyoutPage);
+
+				var detailBoundsNotPresented = flyoutPage.Detail.GetBoundingBox();
+				var flyoutBoundsNotPresented = flyoutPage.Flyout.GetBoundingBox();
+
+				if (IsPad)
+				{
+					Assert.Equal(screenBounds.Width - flyoutBounds.Width, flyoutBounds.X);
+				}
+				else
+				{
+					Assert.Equal(0, flyoutBounds.X);
+				}
+
+				await CloseFlyout(flyoutPage);
+
+				var detailBoundsNotPresented = flyoutPage.Detail.GetBoundingBox();
+				var flyoutBoundsNotPresented = flyoutPage.Flyout.GetBoundingBox();
+
+				if (IsPad)
+
+/* Unmerged change from project 'Controls.DeviceTests(net8.0-maccatalyst)'
+Before:
 						Assert.Equal(screenBounds.Width, flyoutBoundsNotPresented.X);
 					else
 						Assert.Equal(-flyoutBoundsNotPresented.Width, flyoutBoundsNotPresented.X);
+				}
+				else
+				{
+After:
+				{
+*/
+					{
+						Assert.Equal(screenBounds.Width, flyoutBoundsNotPresented.X);
+					}
+					else
+					{
+						Assert.Equal(-flyoutBoundsNotPresented.Width, flyoutBoundsNotPresented.X);
+					}
+				}
+				else
+				{
+					Assert.Equal(detailBoundsNotPresented, detailBounds);
+
+					if (isRtl)
+					{
+						Assert.Equal(screenBounds.Width, flyoutBoundsNotPresented.X);
+					}
+					else
+					{
+						Assert.Equal(-flyoutBoundsNotPresented.Width, flyoutBoundsNotPresented.X);
+					}
 				}
 				else
 				{

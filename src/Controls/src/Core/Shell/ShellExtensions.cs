@@ -28,7 +28,9 @@ namespace Microsoft.Maui.Controls
 			{
 				var result = SearchForPart(items[i], searchBy);
 				if (result != null)
+				{
 					return result;
+				}
 			}
 
 			return null;
@@ -37,7 +39,9 @@ namespace Microsoft.Maui.Controls
 		public static BaseShellItem SearchForPart(this BaseShellItem part, Func<BaseShellItem, bool> searchBy)
 		{
 			if (searchBy(part))
+			{
 				return part;
+			}
 
 			BaseShellItem baseShellItem = null;
 			switch (part)
@@ -47,6 +51,9 @@ namespace Microsoft.Maui.Controls
 					{
 						baseShellItem = SearchForPart(section, searchBy);
 						if (baseShellItem != null)
+
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Before:
 							return baseShellItem;
 					}
 					break;
@@ -56,6 +63,169 @@ namespace Microsoft.Maui.Controls
 						baseShellItem = SearchForPart(content, searchBy);
 						if (baseShellItem != null)
 							return baseShellItem;
+After:
+						{
+							return baseShellItem;
+						}
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+						{
+							return baseShellItem;
+						}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-ios)'
+Before:
+							return baseShellItem;
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+							return baseShellItem;
+After:
+						{
+							return baseShellItem;
+						}
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+						{
+							return baseShellItem;
+						}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
+							return baseShellItem;
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+							return baseShellItem;
+After:
+						{
+							return baseShellItem;
+						}
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+						{
+							return baseShellItem;
+						}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Before:
+							return baseShellItem;
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+							return baseShellItem;
+After:
+						{
+							return baseShellItem;
+						}
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+						{
+							return baseShellItem;
+						}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Before:
+							return baseShellItem;
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+							return baseShellItem;
+After:
+						{
+							return baseShellItem;
+						}
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+						{
+							return baseShellItem;
+						}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Before:
+							return baseShellItem;
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+							return baseShellItem;
+After:
+						{
+							return baseShellItem;
+						}
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+						{
+							return baseShellItem;
+						}
+*/
+						{
+							return baseShellItem;
+						}
+					}
+					break;
+				case IShellSectionController section:
+					foreach (var content in section.GetItems())
+					{
+						baseShellItem = SearchForPart(content, searchBy);
+						if (baseShellItem != null)
+						{
+							return baseShellItem;
+						}
 					}
 					break;
 			}

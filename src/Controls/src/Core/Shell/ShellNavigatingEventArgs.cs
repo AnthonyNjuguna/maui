@@ -42,7 +42,9 @@ namespace Microsoft.Maui.Controls
 		public bool Cancel()
 		{
 			if (!CanCancel)
+			{
 				return false;
+			}
 
 			Cancelled = true;
 			return true;
@@ -55,10 +57,76 @@ namespace Microsoft.Maui.Controls
 		public ShellNavigatingDeferral GetDeferral()
 		{
 			if (_deferralCompleted)
+			{
 				throw new InvalidOperationException("Deferral has already been completed");
 
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Before:
 			if (!CanCancel)
 				return null;
+
+			DeferredEventArgs = true;
+			var currentCount = Interlocked.Increment(ref _deferralCount);
+After:
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
+			if (!CanCancel)
+				return null;
+
+			DeferredEventArgs = true;
+			var currentCount = Interlocked.Increment(ref _deferralCount);
+After:
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Before:
+			if (!CanCancel)
+				return null;
+
+			DeferredEventArgs = true;
+			var currentCount = Interlocked.Increment(ref _deferralCount);
+After:
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Before:
+			if (!CanCancel)
+				return null;
+
+			DeferredEventArgs = true;
+			var currentCount = Interlocked.Increment(ref _deferralCount);
+After:
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Before:
+			if (!CanCancel)
+				return null;
+
+			DeferredEventArgs = true;
+			var currentCount = Interlocked.Increment(ref _deferralCount);
+After:
+			}
+*/
+			}
+
+			if (!CanCancel)
+			{
+				return null;
+			}
+
+			DeferredEventArgs = true;
+			var currentCount = Interlocked.Increment(ref _deferralCount);
+			if (!CanCancel)
+			{
+				return null;
+			}
 
 			DeferredEventArgs = true;
 			var currentCount = Interlocked.Increment(ref _deferralCount);

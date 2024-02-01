@@ -35,7 +35,9 @@ namespace Microsoft.Maui.Controls.Internals
 			supportedVisuals = supportedVisuals ?? _defaultVisualRenderers;
 			//avoid caching null renderers
 			if (trender == null)
+			{
 				return;
+			}
 
 			if (!_handlers.TryGetValue(tview, out Dictionary<Type, (Type target, short priority)> visualRenderers))
 			{
@@ -48,10 +50,14 @@ namespace Microsoft.Maui.Controls.Internals
 				if (visualRenderers.TryGetValue(supportedVisuals[i], out (Type target, short priority) existingTargetValue))
 				{
 					if (existingTargetValue.priority <= priority)
+					{
 						visualRenderers[supportedVisuals[i]] = (trender, priority);
+					}
 				}
 				else
+				{
 					visualRenderers[supportedVisuals[i]] = (trender, priority);
+				}
 			}
 
 			// This registers a factory into the Handler version of the registrar.
@@ -81,7 +87,9 @@ namespace Microsoft.Maui.Controls.Internals
 		{
 			Type handlerType = GetHandlerType(type, visualType ?? _defaultVisualType);
 			if (handlerType == null)
+			{
 				return null;
+			}
 
 			Registrar.CheckIfRendererIsCompatibilityRenderer(handlerType);
 
@@ -103,7 +111,9 @@ namespace Microsoft.Maui.Controls.Internals
 				Registrar.CheckIfRendererIsCompatibilityRenderer(handlerType);
 
 				if (handlerType != null)
+				{
 					returnValue = (TRegistrable)DependencyResolver.ResolveOrCreate(handlerType, source, visual?.GetType(), args);
+				}
 			}
 
 			return returnValue;
@@ -122,7 +132,9 @@ namespace Microsoft.Maui.Controls.Internals
 		public TOut GetHandlerForObject<TOut>(object obj) where TOut : class, TRegistrable
 		{
 			if (obj == null)
+			{
 				throw new ArgumentNullException(nameof(obj));
+			}
 
 			var reflectableType = obj as IReflectableType;
 			var type = reflectableType != null ? reflectableType.GetTypeInfo().AsType() : obj.GetType();
@@ -133,7 +145,9 @@ namespace Microsoft.Maui.Controls.Internals
 		public TOut GetHandlerForObject<TOut>(object obj, params object[] args) where TOut : class, TRegistrable
 		{
 			if (obj == null)
+			{
 				throw new ArgumentNullException(nameof(obj));
+			}
 
 			var reflectableType = obj as IReflectableType;
 			var type = reflectableType != null ? reflectableType.GetTypeInfo().AsType() : obj.GetType();
@@ -149,29 +163,48 @@ namespace Microsoft.Maui.Controls.Internals
 
 			// 1. Do we have this specific type registered already?
 			if (_handlers.TryGetValue(viewType, out Dictionary<Type, (Type target, short priority)> visualRenderers))
+			{
 				if (visualRenderers.TryGetValue(visualType, out (Type target, short priority) specificTypeRenderer))
+				{
 					return specificTypeRenderer.target;
+				}
+			}
 			//else if (visualType == _materialVisualType)
 			//	VisualMarker.MaterialCheck();
 
 			if (visualType != _defaultVisualType && visualRenderers != null)
+			{
 				if (visualRenderers.TryGetValue(_defaultVisualType, out (Type target, short priority) specificTypeRenderer))
+				{
 					return specificTypeRenderer.target;
+				}
+			}
 
 			// 2. Do we have a RenderWith for this type or its base types? Register them now.
 			RegisterRenderWithTypes(viewType, visualType);
 
 			// 3. Do we have a custom renderer for a base type or did we just register an appropriate renderer from RenderWith?
 			if (LookupHandlerType(viewType, visualType, out (Type target, short priority) baseTypeRenderer))
+			{
 				return baseTypeRenderer.target;
+			}
 			else
+			{
 				return null;
+			}
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		public Type GetHandlerTypeForObject(object obj)
 		{
 			if (obj == null)
+			{
 				throw new ArgumentNullException(nameof(obj));
+			}
 
 			var reflectableType = obj as IReflectableType;
 			var type = reflectableType != null ? reflectableType.GetTypeInfo().AsType() : obj.GetType();
@@ -185,12 +218,20 @@ namespace Microsoft.Maui.Controls.Internals
 			while (viewType != null && viewType != typeof(Element))
 			{
 				if (_handlers.TryGetValue(viewType, out Dictionary<Type, (Type target, short priority)> visualRenderers))
+				{
 					if (visualRenderers.TryGetValue(visualType, out handlerType))
+					{
 						return true;
+					}
+				}
 
 				if (visualType != _defaultVisualType && visualRenderers != null)
+				{
 					if (visualRenderers.TryGetValue(_defaultVisualType, out handlerType))
+					{
 						return true;
+					}
+				}
 
 				viewType = viewType.BaseType;
 			}
@@ -235,7 +276,54 @@ namespace Microsoft.Maui.Controls.Internals
 								for (int i = 0; i < attribute2.SupportedVisuals.Length; i++)
 								{
 									if (attribute2.SupportedVisuals[i] == _defaultVisualType)
+
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Before:
 										specificTypeRenderer = attribute2.Type;
+After:
+									{
+										specificTypeRenderer = attribute2.Type;
+									}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
+										specificTypeRenderer = attribute2.Type;
+After:
+									{
+										specificTypeRenderer = attribute2.Type;
+									}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Before:
+										specificTypeRenderer = attribute2.Type;
+After:
+									{
+										specificTypeRenderer = attribute2.Type;
+									}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Before:
+										specificTypeRenderer = attribute2.Type;
+After:
+									{
+										specificTypeRenderer = attribute2.Type;
+									}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Before:
+										specificTypeRenderer = attribute2.Type;
+After:
+									{
+										specificTypeRenderer = attribute2.Type;
+									}
+*/
+									{
+										specificTypeRenderer = attribute2.Type;
+									}
 
 									if (attribute2.SupportedVisuals[i] == visualType)
 									{
@@ -297,7 +385,9 @@ namespace Microsoft.Maui.Controls.Internals
 			{
 				var attribute = attributes[i];
 				if (attribute.ShouldRegister())
+				{
 					Registered.Register(attribute.HandlerType, attribute.TargetType, attribute.SupportedVisuals, attribute.Priority);
+				}
 			}
 		}
 
@@ -314,14 +404,20 @@ namespace Microsoft.Maui.Controls.Internals
 		public static void RegisterStylesheets(InitializationFlags flags)
 		{
 			if ((flags & InitializationFlags.DisableCss) == InitializationFlags.DisableCss)
+			{
 				DisableCSS = true;
+			}
+			}
 		}
 
 		static Dictionary<string, IList<StylePropertyAttribute>> LoadStyleSheets()
 		{
 			var properties = new Dictionary<string, IList<StylePropertyAttribute>>(StringComparer.Ordinal);
 			if (DisableCSS)
+			{
 				return properties;
+			}
+
 			var assembly = typeof(StylePropertyAttribute).Assembly;
 			var styleAttributes = assembly.GetCustomAttributesSafe(typeof(StylePropertyAttribute));
 			var stylePropertiesLength = styleAttributes?.Length ?? 0;
@@ -329,9 +425,31 @@ namespace Microsoft.Maui.Controls.Internals
 			{
 				var attribute = (StylePropertyAttribute)styleAttributes[i];
 				if (properties.TryGetValue(attribute.CssPropertyName, out var attrList))
+				{
 					attrList.Add(attribute);
+				}
 				else
+				{
 					properties[attribute.CssPropertyName] = new List<StylePropertyAttribute> { attribute };
+				}
+			}
+			return properties;
+			}
+
+			var assembly = typeof(StylePropertyAttribute).Assembly;
+			var styleAttributes = assembly.GetCustomAttributesSafe(typeof(StylePropertyAttribute));
+			var stylePropertiesLength = styleAttributes?.Length ?? 0;
+			for (var i = 0; i < stylePropertiesLength; i++)
+			{
+				var attribute = (StylePropertyAttribute)styleAttributes[i];
+				if (properties.TryGetValue(attribute.CssPropertyName, out var attrList))
+				{
+					attrList.Add(attribute);
+				}
+				else
+				{
+					properties[attribute.CssPropertyName] = new List<StylePropertyAttribute> { attribute };
+				}
 			}
 			return properties;
 		}
@@ -349,7 +467,9 @@ namespace Microsoft.Maui.Controls.Internals
 				string resolutionName = assembly.FullName;
 				var resolutionNameAttribute = (ResolutionGroupNameAttribute)assembly.GetCustomAttribute(typeof(ResolutionGroupNameAttribute));
 				if (resolutionNameAttribute != null)
+				{
 					resolutionName = resolutionNameAttribute.ShortName;
+				}
 
 				//NOTE: a simple cast to ExportEffectAttribute[] failed on UWP, hence the Array.Copy
 				var typedEffectAttributes = new ExportEffectAttribute[effectAttributes.Length];
@@ -409,6 +529,9 @@ namespace Microsoft.Maui.Controls.Internals
 			Profile.FrameBegin();
 
 			if (ExtraAssemblies != null)
+
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Before:
 				assemblies = assemblies.Union(ExtraAssemblies).ToArray();
 
 			if (defaultRendererAssembly != null)
@@ -428,15 +551,266 @@ namespace Microsoft.Maui.Controls.Internals
 			// Naive implementation can easily take over a second to run
 			Profile.FramePartition("Reflect");
 			foreach (Assembly assembly in assemblies)
+After:
 			{
-				string frameName = Profile.IsEnabled ? assembly.GetName().Name : "Assembly";
+				assemblies = assemblies.Union(ExtraAssemblies).ToArray();
+			}
+
+			if (defaultRendererAssembly != null)
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
+				assemblies = assemblies.Union(ExtraAssemblies).ToArray();
+
+			if (defaultRendererAssembly != null)
+			{
+				int indexOfExecuting = Array.IndexOf(assemblies, defaultRendererAssembly);
+				if (indexOfExecuting > 0)
+				{
+					assemblies[indexOfExecuting] = assemblies[0];
+					assemblies[0] = defaultRendererAssembly;
+				}
+			}
+
+			if (fontRegistrar == null)
+				fontRegistrar = Application.Current?.FindMauiContext()?.Services?.GetService<IFontRegistrar>();
+
+			// Don't use LINQ for performance reasons
+			// Naive implementation can easily take over a second to run
+			Profile.FramePartition("Reflect");
+			foreach (Assembly assembly in assemblies)
+After:
+			{
+				assemblies = assemblies.Union(ExtraAssemblies).ToArray();
+			}
+
+			if (defaultRendererAssembly != null)
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Before:
+				assemblies = assemblies.Union(ExtraAssemblies).ToArray();
+
+			if (defaultRendererAssembly != null)
+			{
+				int indexOfExecuting = Array.IndexOf(assemblies, defaultRendererAssembly);
+				if (indexOfExecuting > 0)
+				{
+					assemblies[indexOfExecuting] = assemblies[0];
+					assemblies[0] = defaultRendererAssembly;
+				}
+			}
+
+			if (fontRegistrar == null)
+				fontRegistrar = Application.Current?.FindMauiContext()?.Services?.GetService<IFontRegistrar>();
+
+			// Don't use LINQ for performance reasons
+			// Naive implementation can easily take over a second to run
+			Profile.FramePartition("Reflect");
+			foreach (Assembly assembly in assemblies)
+After:
+			{
+				assemblies = assemblies.Union(ExtraAssemblies).ToArray();
+			}
+
+			if (defaultRendererAssembly != null)
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Before:
+				assemblies = assemblies.Union(ExtraAssemblies).ToArray();
+
+			if (defaultRendererAssembly != null)
+			{
+				int indexOfExecuting = Array.IndexOf(assemblies, defaultRendererAssembly);
+				if (indexOfExecuting > 0)
+				{
+					assemblies[indexOfExecuting] = assemblies[0];
+					assemblies[0] = defaultRendererAssembly;
+				}
+			}
+
+			if (fontRegistrar == null)
+				fontRegistrar = Application.Current?.FindMauiContext()?.Services?.GetService<IFontRegistrar>();
+
+			// Don't use LINQ for performance reasons
+			// Naive implementation can easily take over a second to run
+			Profile.FramePartition("Reflect");
+			foreach (Assembly assembly in assemblies)
+After:
+			{
+				assemblies = assemblies.Union(ExtraAssemblies).ToArray();
+			}
+
+			if (defaultRendererAssembly != null)
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Before:
+				assemblies = assemblies.Union(ExtraAssemblies).ToArray();
+
+			if (defaultRendererAssembly != null)
+			{
+				int indexOfExecuting = Array.IndexOf(assemblies, defaultRendererAssembly);
+				if (indexOfExecuting > 0)
+				{
+					assemblies[indexOfExecuting] = assemblies[0];
+					assemblies[0] = defaultRendererAssembly;
+				}
+			}
+
+			if (fontRegistrar == null)
+				fontRegistrar = Application.Current?.FindMauiContext()?.Services?.GetService<IFontRegistrar>();
+
+			// Don't use LINQ for performance reasons
+			// Naive implementation can easily take over a second to run
+			Profile.FramePartition("Reflect");
+			foreach (Assembly assembly in assemblies)
+After:
+			{
+				assemblies = assemblies.Union(ExtraAssemblies).ToArray();
+			}
+
+			if (defaultRendererAssembly != null)
+*/
+			{
+				assemblies = assemblies.Union(ExtraAssemblies).ToArray();
+			}
+
+			if (defaultRendererAssembly != null)
+			{
+				int indexOfExecuting = Array.IndexOf(assemblies, defaultRendererAssembly);
+				if (indexOfExecuting > 0)
+				{
+					assemblies[indexOfExecuting] = assemblies[0];
+					assemblies[0] = defaultRendererAssembly;
+				}
+			}
+
+			if (fontRegistrar == null)
+			{
+				fontRegistrar = Application.Current?.FindMauiContext()?.Services?.GetService<IFontRegistrar>();
+			}
+
+			// Don't use LINQ for performance reasons
+			// Naive implementation can easily take over a second to run
+			Profile.FramePartition("Reflect");
+			foreach (Assembly assembly in assemblies)
+			{
+				int indexOfExecuting = Array.IndexOf(assemblies, defaultRendererAssembly);
+				if (indexOfExecuting > 0)
+				{
+					assemblies[indexOfExecuting] = assemblies[0];
+					assemblies[0] = defaultRendererAssembly;
+				}
+			}
+
+			if (fontRegistrar == null)
+			{
+				fontRegistrar = Application.Current?.FindMauiContext()?.Services?.GetService<IFontRegistrar>();
+			}
+
+			// Don't use LINQ for performance reasons
+			// Naive implementation can easily take over a second to run
+			Profile.FramePartition("Reflect");
+			foreach (Assembly assembly in assemblies)
+			
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Before:
+					object[] attributes = assembly.GetCustomAttributesSafe(attrType);
+					if (attributes == null || attributes.Length == 0)
+						continue;
+After:
+					object[] attributes = assembly.IsEnabled ? assembly.GetName().Name : "Assembly";
 				Profile.FrameBegin(frameName);
 
 				foreach (Type attrType in attrTypes)
 				{
 					object[] attributes = assembly.GetCustomAttributesSafe(attrType);
 					if (attributes == null || attributes.Length == 0)
+					{
 						continue;
+					}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
+					object[] attributes = assembly.GetCustomAttributesSafe(attrType);
+					if (attributes == null || attributes.Length == 0)
+						continue;
+After:
+					object[] attributes = assembly.IsEnabled ? assembly.GetName().Name : "Assembly";
+				Profile.FrameBegin(frameName);
+
+				foreach (Type attrType in attrTypes)
+				{
+					object[] attributes = assembly.GetCustomAttributesSafe(attrType);
+					if (attributes == null || attributes.Length == 0)
+					{
+						continue;
+					}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Before:
+					object[] attributes = assembly.GetCustomAttributesSafe(attrType);
+					if (attributes == null || attributes.Length == 0)
+						continue;
+After:
+					object[] attributes = assembly.IsEnabled ? assembly.GetName().Name : "Assembly";
+				Profile.FrameBegin(frameName);
+
+				foreach (Type attrType in attrTypes)
+				{
+					object[] attributes = assembly.GetCustomAttributesSafe(attrType);
+					if (attributes == null || attributes.Length == 0)
+					{
+						continue;
+					}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Before:
+					object[] attributes = assembly.GetCustomAttributesSafe(attrType);
+					if (attributes == null || attributes.Length == 0)
+						continue;
+After:
+					object[] attributes = assembly.IsEnabled ? assembly.GetName().Name : "Assembly";
+				Profile.FrameBegin(frameName);
+
+				foreach (Type attrType in attrTypes)
+				{
+					object[] attributes = assembly.GetCustomAttributesSafe(attrType);
+					if (attributes == null || attributes.Length == 0)
+					{
+						continue;
+					}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Before:
+					object[] attributes = assembly.GetCustomAttributesSafe(attrType);
+					if (attributes == null || attributes.Length == 0)
+						continue;
+After:
+					object[] attributes = assembly.IsEnabled ? assembly.GetName().Name : "Assembly";
+				Profile.FrameBegin(frameName);
+
+				foreach (Type attrType in attrTypes)
+				{
+					object[] attributes = assembly.GetCustomAttributesSafe(attrType);
+					if (attributes == null || attributes.Length == 0)
+					{
+						continue;
+					}
+*/
+{
+				string frameName = Profile.GetCustomAttributesSafe(attrType);
+					if (attributes == null || attributes.Length == 0)
+					{
+						continue;
+					}
 
 					var length = attributes.Length;
 
@@ -475,7 +849,9 @@ namespace Microsoft.Maui.Controls.Internals
 		internal static void CheckIfRendererIsCompatibilityRenderer(Type rendererType)
 		{
 			if (typeof(IRegisterable).IsAssignableFrom(rendererType))
+			{
 				return;
+			}
 
 			if (typeof(IElementHandler).IsAssignableFrom(rendererType))
 			{

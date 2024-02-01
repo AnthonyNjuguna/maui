@@ -19,10 +19,14 @@ namespace Microsoft.Maui.Controls
 			var strValue = value?.ToString();
 
 			if (strValue == "HorizontalList")
+			{
 				return LinearItemsLayout.CarouselDefault;
+			}
 
 			if (strValue == "VerticalList")
+			{
 				return LinearItemsLayout.CarouselVertical;
+			}
 
 			throw new InvalidOperationException($"Cannot convert \"{strValue}\" into {typeof(LinearItemsLayout)}");
 		}
@@ -30,6 +34,9 @@ namespace Microsoft.Maui.Controls
 		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
 		{
 			if (value is not LinearItemsLayout lil)
+
+/* Unmerged change from project 'Controls.Core(net8.0)'
+Before:
 				throw new NotSupportedException();
 
 			if (lil == LinearItemsLayout.CarouselDefault)
@@ -37,6 +44,134 @@ namespace Microsoft.Maui.Controls
 
 			if (lil == LinearItemsLayout.CarouselVertical)
 				return "VerticalList";
+After:
+			{
+				throw new NotSupportedException();
+			}
+
+			if (lil == LinearItemsLayout.CarouselDefault)
+			{
+				return "HorizontalList";
+			}
+
+			if (lil == LinearItemsLayout.CarouselVertical)
+			{
+				return "VerticalList";
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-maccatalyst)'
+Before:
+				throw new NotSupportedException();
+
+			if (lil == LinearItemsLayout.CarouselDefault)
+				return "HorizontalList";
+
+			if (lil == LinearItemsLayout.CarouselVertical)
+				return "VerticalList";
+After:
+			{
+				throw new NotSupportedException();
+			}
+
+			if (lil == LinearItemsLayout.CarouselDefault)
+			{
+				return "HorizontalList";
+			}
+
+			if (lil == LinearItemsLayout.CarouselVertical)
+			{
+				return "VerticalList";
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-android)'
+Before:
+				throw new NotSupportedException();
+
+			if (lil == LinearItemsLayout.CarouselDefault)
+				return "HorizontalList";
+
+			if (lil == LinearItemsLayout.CarouselVertical)
+				return "VerticalList";
+After:
+			{
+				throw new NotSupportedException();
+			}
+
+			if (lil == LinearItemsLayout.CarouselDefault)
+			{
+				return "HorizontalList";
+			}
+
+			if (lil == LinearItemsLayout.CarouselVertical)
+			{
+				return "VerticalList";
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.19041)'
+Before:
+				throw new NotSupportedException();
+
+			if (lil == LinearItemsLayout.CarouselDefault)
+				return "HorizontalList";
+
+			if (lil == LinearItemsLayout.CarouselVertical)
+				return "VerticalList";
+After:
+			{
+				throw new NotSupportedException();
+			}
+
+			if (lil == LinearItemsLayout.CarouselDefault)
+			{
+				return "HorizontalList";
+			}
+
+			if (lil == LinearItemsLayout.CarouselVertical)
+			{
+				return "VerticalList";
+			}
+*/
+
+/* Unmerged change from project 'Controls.Core(net8.0-windows10.0.20348)'
+Before:
+				throw new NotSupportedException();
+
+			if (lil == LinearItemsLayout.CarouselDefault)
+				return "HorizontalList";
+
+			if (lil == LinearItemsLayout.CarouselVertical)
+				return "VerticalList";
+After:
+			{
+				throw new NotSupportedException();
+			}
+
+			if (lil == LinearItemsLayout.CarouselDefault)
+			{
+				return "HorizontalList";
+			}
+
+			if (lil == LinearItemsLayout.CarouselVertical)
+			{
+				return "VerticalList";
+			}
+*/
+			{
+				throw new NotSupportedException();
+			}
+
+			if (lil == LinearItemsLayout.CarouselDefault)
+			{
+				return "HorizontalList";
+			}
+
+			if (lil == LinearItemsLayout.CarouselVertical)
+			{
+				return "VerticalList";
+			}
 
 			throw new NotSupportedException();
 		}
